@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Circle {
+      #radius;
+      #color;
+      constructor(radius, color) {
+        this.#radius = radius;
+        this.#color = color;
+      }
+      get radius() {
+        return this.#radius;
+      }
+      get area() {
+        let totalArea = this.#radius ** 2 * Math.PI;
+        return totalArea;
+      }
+      toString() {
+        return `Radius: ${this.#radius} Color: ${this.#color}`;
+      }
+    }
+    let radius = new Circle(2, "black");
+    console.log(radius.radius);
+    console.log(radius.area);
+    console.log(radius.toString());
+    console.log(3 ** 2);
+    console.log(3 ** 3);
+  </script>
+</html>
