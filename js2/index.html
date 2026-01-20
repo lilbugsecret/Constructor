@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Datee {
+      #month;
+      #day;
+      #year;
+      constructor(month, day, year) {
+        this.#day = day;
+        this.#month = month;
+        this.#year = year;
+      }
+      get day() {
+        return this.#day;
+      }
+
+      set day(newDay) {
+        if (typeof newDay !== "number") {
+          console.log("Vui lòng nhập giá trị hợp lệ");
+          return;
+        }
+        this.#day = newDay;
+      }
+      get month() {
+        return this.#month;
+      }
+
+      set month(newMonth) {
+        if (typeof newMonth !== "number") {
+          console.log("Vui lòng nhập giá trị hợp lệ");
+          return;
+        }
+        this.#month = newMonth;
+      }
+      get year() {
+        return this.#year;
+      }
+
+      set year(newYear) {
+        if (typeof newYear !== "number") {
+          console.log("Vui lòng nhập giá trị hợp lệ");
+          return;
+        }
+        this.#year = newYear;
+      }
+      toString() {
+        return `Month: ${this.#month} Day: ${this.#day} Year: ${this.#year}`;
+      }
+    }
+    let newDate = new Datee(12, 8, 2026);
+    console.log(newDate.toString());
+    newDate.month = 11;
+    newDate._month = 10;
+    console.log(newDate.toString());
+  </script>
+</html>
