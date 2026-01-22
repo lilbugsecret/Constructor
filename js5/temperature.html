@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Temperature {
+      #celsius;
+      static MAX_CELIUS = -237;
+
+      constructor(input) {
+        if (input < Temperature.MAX_CELIUS) {
+          throw new Error(`Max radius is: ${Temperature.MAX_CELIUS}`);
+        }
+        this.#celsius = input;
+      }
+      get fahrenheit() {
+        return (this.#celsius * 9) / 5 + 32;
+      }
+
+      get celius() {
+        return this.#celsius;
+      }
+      set celius(newValue) {
+        if (newValue < Temperature.MAX_CELIUS) {
+          console.error(`Max radius is: ${Temperature.MAX_CELIUS} ok`);
+          return;
+        }
+        this.#celsius = newValue;
+      }
+
+      get kelvin() {
+        return this.#celsius + 273.15;
+      }
+    }
+    try {
+      let letFah = new Temperature(-236);
+      console.log(letFah.fahrenheit);
+      console.log(letFah.kelvin);
+      let newCe = (letFah.celius = -238);
+      console.log(newCe);
+      console.log(letFah);
+    } catch (error) {
+      console.log(error.message);
+    }
+  </script>
+</html>

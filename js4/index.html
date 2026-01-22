@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rectangle Class - CodeGym</title>
+    <style>
+      canvas {
+        border: 1px solid #000;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Mô tả Hình Chữ Nhật</h2>
+    <canvas id="myCanvas" width="500" height="300"></canvas>
+
+    <script>
+      class Rectangle {
+        #width;
+        #length;
+
+        constructor(width, length) {
+          this.#width = width;
+          this.#length = length;
+        }
+
+        // Getter/Setter cho chiều rộng
+        get width() {
+          return this.#width;
+        }
+        set width(value) {
+          if (value > 0) this.#width = value;
+        }
+
+        // Getter/Setter cho chiều dài
+        get length() {
+          return this.#length;
+        }
+        set length(value) {
+          if (value > 0) this.#length = value;
+        }
+
+        // Phương thức tính diện tích
+        getArea() {
+          return this.#width * this.#length;
+        }
+
+        // Phương thức tính chu vi
+        getPerimeter() {
+          return (this.#width + this.#length) * 2;
+        }
+
+        // Phương thức vẽ lên Canvas
+        draw(canvasId) {
+          const canvas = document.getElementById(canvasId);
+          if (canvas.getContext) {
+            const ctx = canvas.getContext("2d");
+            // Xóa hình cũ trước khi vẽ mới
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#FA8072"; // Màu Salmon
+            ctx.fillRect(10, 10, this.#width, this.#length);
+
+            ctx.strokeStyle = "#000";
+            ctx.strokeRect(10, 10, this.#width, this.#length);
+          }
+        }
+      }
+
+      // --- Kịch bản chương trình ---
+
+      // 1. Khởi tạo đối tượng
+      let myRect = new Rectangle(200, 100);
+
+      // 2. Hiển thị trực quan lên canvas
+      myRect.draw("myCanvas");
+
+      // 3. Thay đổi chiều dài và chiều rộng
+      myRect.width = 300;
+      myRect.length = 150;
+
+      // 4. In ra diện tích và chu vi
+      console.log("Diện tích mới:", myRect.getArea());
+      console.log("Chu vi mới:", myRect.getPerimeter());
+
+      // Vẽ lại sau khi thay đổi
+      myRect.draw("myCanvas");
+    </script>
+  </body>
+</html>
