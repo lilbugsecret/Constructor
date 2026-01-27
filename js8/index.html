@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FlashLamp OOP Clean Code</title>
+  </head>
+  <body>
+    <script>
+      class Battery {
+        #energy;
+
+        constructor(energy = 0) {
+          // Đảm bảo năng lượng không bị âm ngay từ đầu
+          this.#energy = energy < 0 ? 0 : energy;
+        }
+
+        get energy() {
+          return this.#energy;
+        }
+
+        decreaseEnergy() {
+          if (this.#energy > 0) this.#energy--;
+        }
+      }
+
+      class FlashLamp {
+        #battery; // Viết thường chữ cái đầu cho đúng chuẩn camelCase
+        #status;
+
+        constructor(battery = null, status = false) {
+          this.#battery = battery;
+          this.#status = status;
+        }
+
+        // Setter để thay pin mới
+        set battery(val) {
+          if (!(val instanceof Battery)) {
+            console.error("Lỗi: Phải lắp đúng loại đối tượng Battery!");
+            return;
+          }
+          this.#battery = val;
+        }
+
+        get batteryInfo() {
+          const energy = this.#battery ? this.#battery.energy : "N/A";
+          return `Pin: ${energy}% | Trạng thái: ${this.#status ? "Đang bật" : "Đang tắt"}`;
+        }
+
+        turnOn() {
+          this.#status = true;
+        }
+        turnOff() {
+          this.#status = false;
+        }
+
+        light() {
+          // 1. Kiểm tra sự tồn tại của pin (Guard Clause)
+          if (!(this.#battery instanceof Battery)) {
+            console.warn("Chưa lắp pin!");
+            return;
+          }
+
+          // 2. Kiểm tra điều kiện sáng
+          if (this.#status && this.#battery.energy > 0) {
+            this.#battery.decreaseEnergy();
+            console.log(`Đèn sáng! Năng lượng còn: ${this.#battery.energy}`);
+          } else {
+            const reason = !this.#status ? "Đèn đang tắt" : "Hết pin";
+            console.log(`Không sáng được. Lý do: ${reason}`);
+          }
+        }
+      }
+
+      // --- Kịch bản chạy thử (Clean Test) ---
+
+      // 1. Khởi tạo pin và đèn
+      const lowBattery = new Battery(1);
+      const myLamp = new FlashLamp(lowBattery);
+
+      // 2. Thực thi logic
+      console.log("--- Bắt đầu Test ---");
+      myLamp.turnOn();
+      myLamp.light(); // Sáng, pin về 0
+      myLamp.light(); // Không sáng vì hết pin
+
+      console.log("--- Thay pin mới ---");
+      const superBattery = new Battery(100);
+      myLamp.battery = superBattery; // Dùng setter
+      myLamp.light(); // Sáng lại ngay lập tức
+
+      console.log(myLamp.batteryInfo);
+    </script>
+  </body>
+</html>
