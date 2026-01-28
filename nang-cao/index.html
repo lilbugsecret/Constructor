@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Apple {
+      #weight;
+      constructor(weight = 10) {
+        this.#weight = weight;
+      }
+      get weight() {
+        return this.#weight;
+      }
+
+      decrease() {
+        if (this.#weight > 0) {
+          this.#weight--;
+        }
+      }
+      isEmpty() {
+        return this.#weight === 0 ? true : false;
+      }
+    }
+
+    class Human {
+      #name;
+      #gender;
+      #weight;
+      constructor(name, gender = false, weight) {
+        this.#name = name;
+        this.#gender = gender;
+        this.#weight = weight;
+      }
+
+      isMale() {
+        return this.#gender ? "Women" : "Men";
+      }
+      get name() {
+        return this.#name;
+      }
+      set name(newVal) {
+        if (typeof newVal === "string" && newVal.trim().length > 0)
+          this.#name = newVal.trim();
+      }
+      get gender() {
+        return this.#gender;
+      }
+      set gender(newVal) {
+        if (typeof newVal === "boolean") this.#gender = newVal;
+        else return `Vui lòng thử lại kiểu boolean`;
+      }
+      get weight() {
+        return this.#weight;
+      }
+      set weight(newVal) {
+        if (typeof newVal === "number" && newVal > 0) {
+          this.#weight = newVal;
+        }
+      }
+
+      getInfo() {
+        return `Name: ${this.#name} - Gender: ${this.#gender ? "Woman" : "Men"} - Weight: ${this.#weight}`;
+      }
+      checkApple(obj) {
+        if (!(obj instanceof Apple)) {
+          console.log("Vui lòng thử lại dữ liệu!");
+          return;
+        }
+        return apple.weight;
+      }
+      eat(obj) {
+        if (!(obj instanceof Apple)) return "Không phải Apple";
+        if (!obj.isEmpty()) {
+          obj.decrease();
+
+          console.log(`${this.#name} đã ăn một quả táo`);
+          this.#weight++;
+          if (obj.isEmpty()) {
+            console.log(`${this.#name} đã ăn quả táo cuối cùng`);
+          }
+        } else {
+          console.log("Ăn hết táo mất rồi!");
+        }
+      }
+      say(text, obj) {
+        console.log(`${obj.name} đã nói: ${text}`);
+      }
+    }
+    const apple = new Apple(5);
+    const human = new Human("Adam", false, 72);
+    const eva = new Human("Eva", true, 55);
+    human.eat(apple);
+    eva.eat(apple);
+    human.eat(apple);
+    eva.eat(apple);
+    human.eat(apple);
+    human.eat(apple);
+    human.eat(apple);
+    human.eat(apple);
+    human.name = "    qg ";
+    human.gender = "  ";
+    human.weight = "66";
+    console.log(human.getInfo());
+    console.log(human.checkApple(apple));
+  </script>
+</html>
