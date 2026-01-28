@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      style="width: 100%; height: 800px; border: 1px solid #000"
+    ></canvas>
+  </body>
+  <script>
+    class Hero {
+      constructor(imageSrc, x, y, size, speed) {
+        this.img = new Image();
+        this.img.src = imageSrc;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speed = speed;
+      }
+
+      draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.size, this.size);
+      }
+
+      // Các hàm di chuyển có kiểm tra biên
+      moveLeft() {
+        if (this.x > 0) this.x -= this.speed;
+      }
+      moveRight(maxWidth) {
+        if (this.x + this.size < maxWidth) this.x += this.speed;
+      }
+      moveUp() {
+        if (this.y > 0) this.y -= this.speed;
+      }
+      moveDown(maxHeight) {
+        if (this.y + this.size < maxHeight) this.y += this.speed;
+      }
+    }
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const hero = new Hero("pikachu.png", 50, 50, 20, 20);
+
+    // Lưu trạng thái các phím
+    let keys = {};
+
+    window.addEventListener("keydown", (e) => {
+      keys[e.code] = true;
+    });
+
+    window.addEventListener("keyup", (e) => {
+      keys[e.code] = false;
+    });
+    function update() {
+      // 1. Xóa khung hình cũ
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (keys["ArrowLeft"]) hero.moveLeft();
+      if (keys["ArrowRight"]) hero.moveRight(canvas.width);
+      if (keys["ArrowUp"]) hero.moveUp();
+      if (keys["ArrowDown"]) hero.moveDown(canvas.height);
+
+      // 3. Vẽ lại nhân vật ở vị trí mới
+      hero.draw(ctx);
+
+      // 4. Lặp lại
+      requestAnimationFrame(update);
+    }
+
+    // Bắt đầu khi ảnh đã tải xong
+    hero.img.onload = () => {
+      update();
+    };
+  </script>
+</html>
