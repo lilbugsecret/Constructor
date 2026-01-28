@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Television {
+      #currentChannel;
+      #currentVolumn;
+      #status;
+      constructor(currentChannel = 1, currentVolumn = 50, status = false) {
+        this.#currentChannel = currentChannel;
+        this.#currentVolumn = currentVolumn;
+        this.#status = status;
+      }
+      get currentChannel() {
+        return this.#currentChannel;
+      }
+      set currentChannel(val) {
+        this.#currentChannel = val;
+      }
+      get currentVolumn() {
+        return this.#currentVolumn;
+      }
+      set currentVolumn(val) {
+        this.#currentVolumn = val;
+      }
+      toggleButton() {
+        this.#status = !this.#status;
+        if (this.#status) {
+          return console.log(
+            ` Đã bật TV - kênh hiện tại là kênh ${this.#currentChannel}`,
+          );
+        } else {
+          console.log("Chưa bật TV");
+        }
+      }
+    }
+
+    class Remote {
+      #id;
+      constructor(id = 1) {
+        this.#id = id;
+      }
+      controlChannel(tv, val) {
+        return (tv.currentChannel = val);
+      }
+
+      controlVolIn(tv) {
+        return (tv.currentVolumn += 2);
+      }
+      controlVolDe(tv) {
+        return (tv.currentVolumn -= 2);
+      }
+    }
+
+    const tele = new Television(1, 60, false);
+    const remote = new Remote(123232);
+    remote.controlChannel(tele, 2);
+    tele.toggleButton();
+    tele.toggleButton();
+    tele.toggleButton();
+    remote.controlVolIn(tele);
+    remote.controlVolDe(tele);
+
+    console.log(remote.controlVolIn(tele));
+  </script>
+</html>
