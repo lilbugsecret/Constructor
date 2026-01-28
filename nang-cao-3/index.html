@@ -6,4 +6,119 @@
     <title>Document</title>
   </head>
   <body></body>
+  <script>
+    class Animals {
+      #name;
+      #weight;
+      #speed;
+      #status;
+      #text;
+      constructor({
+        name = "",
+        weight = 0,
+        speed = 0,
+        status = true,
+        text = "",
+      }) {
+        this.#name = name;
+        this.#weight = weight;
+        this.#speed = speed;
+        this.#status = status;
+        this.#text = text;
+      }
+      get name() {
+        return this.#name;
+      }
+      set name(val) {
+        this.#name = val;
+      }
+      get speed() {
+        return this.#speed;
+      }
+      set speed(val) {
+        this.#speed = val;
+      }
+      get status() {
+        return this.#status;
+      }
+      set status(val) {
+        this.#status = val;
+      }
+      get weight() {
+        return this.#weight;
+      }
+      set weight(val) {
+        this.#weight = val;
+      }
+      get text() {
+        return this.#text;
+      }
+      set text(val) {
+        this.#text = val;
+      }
+
+      animalCall() {
+        return console.log(`The ${this.name} call is ${this.text}`);
+      }
+    }
+
+    class Rat extends Animals {
+      constructor(name, weight, speed, status, text) {
+        super({
+          name,
+          weight,
+          speed,
+          status,
+          text,
+        });
+      }
+    }
+
+    class Cat extends Animals {
+      constructor(name, weight, speed, text) {
+        super({ name, weight, speed, text });
+      }
+      catchRat(array) {
+        let countCatch = 0;
+        for (let i = 0; i < array.length; i++) {
+          let rat = array[i];
+          if (this.speed > rat.speed) {
+            console.log(`${this.name} đã bứt tốc bá tóm được ${rat.name}`);
+            if (rat.status === true) {
+              rat.status = false;
+              this.eatRat(rat);
+              countCatch++;
+            } else console.log("Jerry đã từ trần không thể ăn vì dở ẹc");
+          } else {
+            console.log(
+              `Chú Mèo ${this.name} đã không thể tóm được chú Chuột ${rat.name}`,
+            );
+          }
+        }
+        console.log(`Số lần Tom bắt và ăn được là ${countCatch}`);
+      }
+
+      eatRat(rat) {
+        console.log("Sau đó Chú mèo đã ăn thịt " + rat.name);
+        let oldWeight = this.weight;
+        this.weight += rat.weight;
+        console.log(
+          "Trọng lượng ban đầu của chú Mèo tăng từ " +
+            oldWeight +
+            "kg" +
+            " lên thành " +
+            this.weight +
+            "kg",
+        );
+      }
+    }
+    const cat = new Cat("Tom", 10, 20, "Mewo mewo");
+    const rat = new Rat("Jerry", 2, 2, true, "Chit chit");
+    const rat2 = new Rat("Jerry2", 20, 5, true, "Chit chit2");
+    const rat3 = new Rat("Jerr3y", 2, 10, false, "Chit chit3 chet");
+    const rat4 = new Rat("Jerry4", 2, 4, true, "Chit chit4");
+    const arrayRat = [rat, rat2, rat3, rat4];
+    rat.animalCall();
+    cat.catchRat(arrayRat);
+  </script>
 </html>
