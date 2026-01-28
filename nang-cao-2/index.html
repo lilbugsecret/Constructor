@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class ElectricLamp {
+      #status;
+      constructor(status = false) {
+        this.#status = status;
+      }
+      get status() {
+        return this.#status;
+      }
+      set status(newVal) {
+        this.#status = newVal;
+      }
+      turnOn() {
+        return (this.#status = true);
+      }
+
+      turnOff() {
+        return (this.#status = false);
+      }
+    }
+
+    class SwitchButton {
+      #objLamp;
+      #status;
+      constructor(objLamp, status = false) {
+        this.#objLamp = objLamp;
+        this.#status = status;
+      }
+      connectToLamp() {
+        return this.#objLamp.status
+          ? "The lamp is turn on"
+          : "The lamp is turn off";
+      }
+      swichOff() {
+        this.#objLamp.turnOff();
+        this.#status = false;
+        return "Light is now OFF";
+      }
+
+      swichOn() {
+        this.#objLamp.turnOn();
+        this.#status = true;
+        return "Light is now ON";
+      }
+    }
+
+    const theLamp = new ElectricLamp(false);
+    const button = new SwitchButton(theLamp, false);
+    console.log(button.connectToLamp());
+    let total = 0;
+    for (let i = 0; i < 10; i++) {
+      console.log(`Lần lặp thứ ${i + 1}`);
+      console.log(button.swichOn());
+      console.log(button.swichOff());
+      total++;
+    }
+    console.log(`Tổng số lần bật/tắt là: ${total}`);
+  </script>
+</html>
